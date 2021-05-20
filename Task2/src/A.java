@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class A {
 	private int[] arr;
+	private int[] arr1;
 	private boolean minMaxNear = false;
 	private String message = "";
 	A(int... args) {
@@ -17,10 +18,18 @@ public class A {
 		if(minMaxNear){
 			message = "Максимальный и минимальный элемент расположены рядом";
 		} else {
-			message = "";
-			for (int i = 0; i < arr.length; i++) {
-				message += Integer.toString(arr[i]);
-				message += " ";
+			if (arr1 != null) {
+				message = "";
+				for (int i = 0; i < arr1.length; i++) {
+					message += Integer.toString(arr1[i]);
+					message += " ";
+				}
+			} else {
+				message = "";
+				for (int i = 0; i < arr.length; i++) {
+					message += Integer.toString(arr[i]);
+					message += " ";
+				}
 			}
 		}
 		
@@ -28,17 +37,21 @@ public class A {
 	}
 	
 	public void sortArr(){
-		int max = arr[0];
-		int min = arr[0];
+		arr1 = new int[arr.length];
+		for(int i=0;i<arr.length;i++){
+			arr1[i] = arr[i];
+		}
+		int max = arr1[0];
+		int min = arr1[0];
 		int indexMax = 0;
 		int indexMin = 0;
-		for(int i=0;i<arr.length;i++){
-			if(arr[i]>max){
-				max = arr[i];
+		for(int i=0;i<arr1.length;i++){
+			if(arr1[i]>max){
+				max = arr1[i];
 				indexMax = i;
 			}
-			if(arr[i]<min){
-				min = arr[i];
+			if(arr1[i]<min){
+				min = arr1[i];
 				indexMin = i;
 			}
 		}
@@ -47,17 +60,26 @@ public class A {
 			int diff = max - min;
 			if (indexMax > indexMin){
 				for(int i=indexMin+1; i<indexMax-1;i++){
-					arr[i] = diff;
+					arr1[i] = diff;
 				}
 				
 			} else {
 				for(int i=indexMax+1; i<indexMin-1;i++){
-					arr[i] = diff;
+					arr1[i] = diff;
 				}
 			}
 			
 		} else {
 			minMaxNear = true;
 		}
+	}
+	
+	public String printFirstArr(){
+		message = "";
+		for (int i = 0; i < arr.length; i++) {
+			message += Integer.toString(arr[i]);
+			message += " ";
+		}
+		return message;
 	}
 }
